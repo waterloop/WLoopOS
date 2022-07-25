@@ -28,7 +28,9 @@ gpu_mem_1024=100
 # enable autoprobing of Bluetooth driver without need of hciattach/btattach
 # dtoverlay=krnbt=on
 
+dtoverlay=mcp251xfd,spi0-0,oscillator=16000000,interrupt=25
 dtoverlay=disable-bt
+
 init_uart_baud=115200
 enable_uart=1
 uart_2ndstage=1
