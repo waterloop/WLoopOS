@@ -12,6 +12,10 @@ That being said, all dependencies can be installed via `make dependencies`.
 
 ### Building
 
+For a one-shot, fully automated build, you can run `./build.sh`.
+
+For a more manual approach:
+
 ```bash
 make buildroot
 make defconfig
