@@ -7,7 +7,7 @@ KERNEL_DIR = ./linux
 KERNEL_TARBALL_DIR = $(BUILD_DIR)/linux.tar.gz
 
 RPI_KERNEL_COMMIT_HASH = 0b54dbda3cca2beb51e236a25738784e90853b64
-PREEMPT_RT_PATCH = patch-5.10.131-rt72
+PREEMPT_RT_PATCH_URL = https://cdn.kernel.org/pub/linux/kernel/projects/rt/5.10/older/patches-5.10.90-rt61.tar.gz
 
 BUILDROOT_DIR = ./buildroot
 BUILDROOT_VER = 2022.02.3
@@ -40,7 +40,7 @@ defconfig:
 .PHONY: savedefconfig
 savedefconfig:
 	cd $(BUILDROOT_DIR) && make \
-		BR2_EXTERNAL=$(WLOOP_OS_DIR)
+		BR2_EXTERNAL=$(WLOOP_OS_DIR) \
 		BASEDIR_=$(THIS_DIR) \
 		savedefconfig
 
@@ -65,11 +65,13 @@ kernel: $(BUILD_DIR)
 	mv raspberrypi-linux-* $(KERNEL_DIR)
 
 	# apply PREEMPT_RT patch
-	# wget https://cdn.kernel.org/pub/linux/kernel/projects/rt/5.10/$(PREEMPT_RT_VER).patch.gz
-	# gzip -d $(PREEMPT_RT_PATCH)
-	# cd $(KERNEL_DIR) && (cat ../$(PREEMPT_RT_PATCH).patch | patch -p1)
+	wget -O - $(PREEMPT_RT_PATCH_URL) | tar xzv
+	cd $(KERNEL_DIR) && \
+		for i in ../patches/*.patch; do (cat $$i | patch -p1); done
 
-	@echo "compressing into tarball..."
+	rm -r ./patches
+
+	# compress to tarball
 	tar -C $(KERNEL_DIR) -cvzf $(KERNEL_TARBALL_DIR) .
 
 .PHONY: sdcard
