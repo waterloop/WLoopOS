@@ -26,7 +26,7 @@ make
 #### Parallelizing Build
 
 The defconfig for this proejct is configured to build with 8 parallel jobs. This
-can be changed via the `BR2_JLEVEL` variable in the defconfig
+can be changed via the `BR2_JLEVEL` variable in the defconfig.
 
 ### Flashing SD Card
 
