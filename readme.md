@@ -17,14 +17,16 @@ For a one-shot, fully automated build, you can run `./build.sh`.
 For a more manual approach:
 
 ```bash
+make kernel
 make buildroot
 make defconfig
 make
 ```
 
-**NOTE**:
-* The defconfig for this project is configured to use 4 CPU cores
-* This can be changed via the `BR2_JLEVEL` variable in the defconfig
+#### Parallelizing Build
+
+The defconfig for this proejct is configured to build with 8 parallel jobs. This
+can be changed via the `BR2_JLEVEL` variable in the defconfig
 
 ### Flashing SD Card
 
@@ -52,5 +54,14 @@ make menuconfig
 # make some changes in the menuconfig...
 
 make savedefconfig  # save the changes back
+```
+
+A similar process can be applied to the `kernel.conf` for configuring the kernel.
+
+```bash
+make linux-menuconfig
+# make some changes
+
+make linux-update-defconfig
 ```
 

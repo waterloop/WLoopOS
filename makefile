@@ -51,6 +51,20 @@ menuconfig:
 		BASEDIR_= $(THIS_DIR) \
 		menuconfig
 
+.PHONY: linux-menuconfig
+linux-menuconfig:
+	cd $(BUILDROOT_DIR) && make \
+		BR2_EXTERNAL=$(WLOOP_OS_DIR) \
+		BASEDIR_= $(THIS_DIR) \
+		linux-menuconfig
+
+.PHONY: linux-update-defconfig
+linux-update-defconfig:
+	cd $(BUILDROOT_DIR) && make \
+		BR2_EXTERNAL=$(WLOOP_OS_DIR) \
+		BASEDIR_= $(THIS_DIR) \
+		linux-update-menuconfig
+
 .PHONY: buildroot
 buildroot:
 	# install buildroot
