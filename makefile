@@ -117,7 +117,8 @@ dependencies:
 		libncurses-dev \
 		coreutils \
 		flex \
-		bison
+		bison \
+		bc
 
 .PHONY: clean
 clean:
