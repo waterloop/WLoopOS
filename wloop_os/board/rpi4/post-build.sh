@@ -10,3 +10,10 @@ cat $CONF_PATH/wpa_supplicant.conf > ./output/target/etc/wpa_supplicant.conf
 
 cat $CONF_PATH/banner.txt > ./output/target/etc/issue
 
+# Generate ssh key pair
+mkdir -p ./build/ssh
+ssh-keygen -t rsa -N '' -f ./build/ssh/id_rsa -C build_generated_key <<< y
+mkdir -p $1/root/.ssh/
+chmod -R 700 $1/root/
+cp ./build/ssh/id_rsa.pub $1/root/.ssh/authorized_keys
+chmod 600 $1/root/.ssh/authorized_keys
